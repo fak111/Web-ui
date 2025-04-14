@@ -14,6 +14,8 @@ services:
     environment:
       - OPENAI_ENDPOINT=${OPENAI_ENDPOINT:-https://api.openai.com/v1}
       - OPENAI_API_KEY=${OPENAI_API_KEY:-}
+      - Intern_ENDPOINT=${Intern_ENDPOINT:-https://chat.intern-ai.org.cn/api/v1}
+      - Intern_API_KEY=${Intern_API_KEY:-}
       - ANTHROPIC_API_KEY=${ANTHROPIC_API_KEY:-}
       - ANTHROPIC_ENDPOINT=${ANTHROPIC_ENDPOINT:-https://api.anthropic.com}
       - GOOGLE_API_KEY=${GOOGLE_API_KEY:-}

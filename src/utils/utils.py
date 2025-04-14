@@ -15,6 +15,7 @@ from .llm import DeepSeekR1ChatOpenAI, DeepSeekR1ChatOllama
 
 PROVIDER_DISPLAY_NAMES = {
     "openai": "OpenAI",
+    "Intern": "Intern",
     "azure_openai": "Azure OpenAI",
     "anthropic": "Anthropic",
     "deepseek": "DeepSeek",
@@ -66,6 +67,7 @@ def get_llm_model(provider: str, **kwargs):
             base_url=base_url,
             api_key=api_key,
         )
+    
     elif provider == "openai":
         if not kwargs.get("base_url", ""):
             base_url = os.getenv("OPENAI_ENDPOINT", "https://api.openai.com/v1")
@@ -78,6 +80,19 @@ def get_llm_model(provider: str, **kwargs):
             base_url=base_url,
             api_key=api_key,
         )
+    elif provider == "Intern":
+        if not kwargs.get("base_url", ""):
+            base_url = os.getenv("Intern_ENDPOINT", "https://chat.intern-ai.org.cn/api/v1")
+        else:
+            base_url = kwargs.get("base_url")
+
+        return ChatOpenAI(
+            model=kwargs.get("model_name", "internlm3-latest"),
+            temperature=kwargs.get("temperature", 0.0),
+            base_url=base_url,
+            api_key=api_key,
+        )
+    
     elif provider == "deepseek":
         if not kwargs.get("base_url", ""):
             base_url = os.getenv("DEEPSEEK_ENDPOINT", "")
@@ -166,6 +181,7 @@ def get_llm_model(provider: str, **kwargs):
 model_names = {
     "anthropic": ["claude-3-5-sonnet-20241022", "claude-3-5-sonnet-20240620", "claude-3-opus-20240229"],
     "openai": ["gpt-4o", "gpt-4", "gpt-3.5-turbo", "o3-mini"],
+    "Intern": ["internlm3-latest", "internlm2.5-latest", "internvl-latest"],
     "deepseek": ["deepseek-chat", "deepseek-reasoner"],
     "google": ["gemini-2.0-flash", "gemini-2.0-flash-thinking-exp", "gemini-1.5-flash-latest",
                "gemini-1.5-flash-8b-latest", "gemini-2.0-flash-thinking-exp-01-21", "gemini-2.0-pro-exp-02-05"],
